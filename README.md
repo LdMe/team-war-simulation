@@ -7,5 +7,3 @@ Pygame
 ### *How to play:*   
 press R to reset map  
 press S to see/hide team and  life bars   
- 
-enjoy ;)
