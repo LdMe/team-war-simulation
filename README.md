@@ -8,4 +8,4 @@ Pygame
 press R to reset map  
 press S to see/hide team and  life bars   
  
-have fun ;)
+enjoy ;)
