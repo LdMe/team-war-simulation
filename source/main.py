@@ -4,22 +4,29 @@ from time import sleep
 
 def main():
     
-    X=600
-    Y=600
-    Xscale=30
-    Yscale=30
+    X=1200
+    Y=800
+    Xscale=40
+    Yscale=40
     screen = pygame.display.set_mode((X,Y + 2 * Yscale))
     mimapa = mapa(X,Y,Xscale,Yscale)
     game = pygame.init()
     
-    print(mimapa.whereIs((100,100)))
-    print(mimapa.get(-1,-1))
+    #print(mimapa.whereIs((100,100)))
+    #print(mimapa.get(-1,-1))
     mimapa.createmap()
     list_teams = []
-    num_teams = 4
-    for i in range(num_teams):
-        team = teams(randomColor(),i)
+    num_teams = 2
+    if(num_teams==2):
+        team = teams((255,0,0),1)
         list_teams.append(team)
+        team = teams((0,0,255),2)
+        list_teams.append(team)
+
+    else:
+        for i in range(num_teams):
+            team = teams(randomColor(),i)
+            list_teams.append(team)
     mimapa.createDessert((int(random() * X),int(random()* Y)),int(random() * X / Xscale),0.2)
     mimapa.createGrassland((int(random() * X),int(random()* Y)),int(random() * X / Xscale),0.2)
     mimapa.createLake((int(random() * X),int(random()* Y)),int(random() * X / Xscale),0.2)
@@ -34,13 +41,13 @@ def main():
     print(len(mimapa.trees))
     active = 1
     for i in list_teams:
-           mimapa.create_ships(mimapa.lakes,3,i)
-           mimapa.create_tanks(mimapa.ground +mimapa.grasslands + mimapa.desserts,4,i)
-           mimapa.create_soldiers(mimapa.ground +mimapa.grasslands + mimapa.desserts,4,i)
-           mimapa.create_bases(mimapa.ground +mimapa.grasslands + mimapa.desserts,1,i)
+           mimapa.create_ships(mimapa.lakes,5,i)
+           mimapa.create_tanks(mimapa.ground +mimapa.grasslands + mimapa.desserts,8,i)
+           mimapa.create_soldiers(mimapa.ground +mimapa.grasslands + mimapa.desserts,8,i)
+           mimapa.create_bases(mimapa.ground +mimapa.grasslands + mimapa.desserts,3,i)
            mimapa.create_bases(mimapa.lakes,1,i,True)
-           mimapa.create_planes(mimapa.ground +mimapa.grasslands + mimapa.desserts,3,i)
-           mimapa.create_healicopters(mimapa.ground +mimapa.grasslands + mimapa.desserts,3,i)
+           mimapa.create_planes(mimapa.ground +mimapa.grasslands + mimapa.desserts,6,i)
+           mimapa.create_healicopters(mimapa.ground +mimapa.grasslands + mimapa.desserts,6,i)
     mimapa.teams= list_teams
     while(active):
         mimapa.show(screen)

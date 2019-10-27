@@ -12,9 +12,9 @@ class spritesheet(object):
     def __init__(self, filename):
         try:
             self.sheet = pygame.image.load(filename).convert()
-        except pygame.error, message:
-            print 'Unable to load spritesheet image:', filename
-            raise SystemExit, message
+        except(pygame.error, message):
+            print( 'Unable to load spritesheet image:', filename)
+            raise(SystemExit, message)
     # Load a specific image from a specific rectangle
     def image_at(self, rectangle, colorkey = None):
         "Loads image from x,y,x+offset,y+offset"
@@ -113,9 +113,9 @@ class mapa:
             self.water_images.append(self.image.image_at((i * 20 + 100,20,20,20)))
             self.ground_images.append(self.image.image_at((i * 20,0,20,20)))
             self.trees_images.append(self.image.image_at((i *20,40,20,20)))
-        for i in range(X / Xscale):
+        for i in range(int(X / Xscale)):
             self.lista.append([])
-            for j  in range(Y / Yscale):
+            for j  in range(int(Y / Yscale)):
                 patch = patches(i * Xscale,j * Yscale,Xscale,Yscale,counter)
                 self.lista[i].append(patch)
                 self.positions[str(counter)] =(i,j)
@@ -482,7 +482,8 @@ class mapa:
                     self.desserts.append(j)
 
 
-    def whereIs(self,(x,y)):
+    def whereIs(self,arr):
+        (x,y)=arr
         for i in self.lista:
             for j in i:
                 if(j.xpos<=x<(j.xpos +self.Xscale) and j.ypos<=y<(j.ypos +self.Yscale)):
@@ -574,7 +575,8 @@ class patches:
         self.type = name
         self.hasImage= True
         self.image = pygame.transform.scale(self.image,(self.Xscale,self.Yscale))
-    def distance(self,(x,y)):
+    def distance(self,arr):
+        (x,y)=arr
         distance = abs(self.xpos - x )+ abs(self.ypos - y)
         return distance
     def reserve(self,L):
@@ -1139,7 +1141,7 @@ class soldiers(tanks):
         self.move(mapa)
         self.show(screen)
         if(self.speed != 0):
-            self.image_up = self.images[self.counter / 3]
+            self.image_up = self.images[int(self.counter / 3)]
         else:
             self.image_up = self.image2
         self.counter = self.counter + 1
